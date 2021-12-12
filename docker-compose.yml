@@ -1,0 +1,54 @@
+version: '2'
+
+services:
+  spark:
+    image: xsipka/vinf
+    hostname: spark
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_PID_DIR=/vinf_temp
+      - SPARK_LOCAL_DIRS=/vinf_temp
+    ports:
+      - '8080:8080'
+      - '8888:8888'
+      - '4040:4040'
+    volumes:
+      - '/mnt/d/Dokumenty/STU - FIIT/ING/1. sem/VIINF/wiki parser:/data'
+      - '/mnt/d/Dokumenty/STU - FIIT/ING/1. sem/VIINF/wiki parser/docker-tmp-volumes/master:/vinf_temp'
+      - '/mnt/d/Dokumenty/STU - FIIT/ING/1. sem/VIINF/wiki parser/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf'
+  spark-worker-1:
+    image: xsipka/vinf
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_PID_DIR=/vinf_temp
+      - SPARK_LOCAL_DIRS=/vinf_temp
+    volumes:
+      - '/mnt/d/Dokumenty/STU - FIIT/ING/1. sem/VIINF/wiki parser:/data'
+      - '/mnt/d/Dokumenty/STU - FIIT/ING/1. sem/VIINF/wiki parser/docker-tmp-volumes/master:/vinf_temp'
+  spark-worker-2:
+    image: xsipka/vinf
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_PID_DIR=/vinf_temp
+      - SPARK_LOCAL_DIRS=/vinf_temp
+    volumes:
+      - '/mnt/d/Dokumenty/STU - FIIT/ING/1. sem/VIINF/wiki parser:/data'
+      - '/mnt/d/Dokumenty/STU - FIIT/ING/1. sem/VIINF/wiki parser/docker-tmp-volumes/master:/vinf_temp'
